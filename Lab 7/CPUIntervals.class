@@ -1,0 +1,59 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.PriorityQueue;
+
+public class CPUIntervals {
+   public CPUIntervals() {
+   }
+
+   public static int leastInterval(char[] var0, int var1) {
+      HashMap var2 = new HashMap();
+      char[] var3 = var0;
+      int var4 = var0.length;
+
+      int var5;
+      for(var5 = 0; var5 < var4; ++var5) {
+         char var6 = var3[var5];
+         var2.put(var6, (Integer)var2.getOrDefault(var6, 0) + 1);
+      }
+
+      PriorityQueue var9 = new PriorityQueue((var0x, var1x) -> {
+         return var1x - var0x;
+      });
+      var9.addAll(var2.values());
+
+      for(var4 = 0; !var9.isEmpty(); var4 += var9.isEmpty() ? var5 : var1 + 1) {
+         var5 = 0;
+         ArrayList var10 = new ArrayList();
+
+         for(int var7 = 0; var7 <= var1; ++var7) {
+            if (!var9.isEmpty()) {
+               var10.add((Integer)var9.poll());
+               ++var5;
+            }
+         }
+
+         Iterator var11 = var10.iterator();
+
+         while(var11.hasNext()) {
+            int var8 = (Integer)var11.next();
+            --var8;
+            if (var8 > 0) {
+               var9.add(var8);
+            }
+         }
+      }
+
+      return var4;
+   }
+
+   public static void main(String[] var0) {
+      char[] var1 = new char[]{'A', 'A', 'A', 'B', 'B', 'B'};
+      System.out.println(leastInterval(var1, 2));
+      char[] var2 = new char[]{'A', 'C', 'A', 'B', 'D', 'B'};
+      System.out.println(leastInterval(var2, 1));
+      char[] var3 = new char[]{'A', 'A', 'A', 'B', 'B', 'B'};
+      System.out.println(leastInterval(var3, 3));
+   }
+}
