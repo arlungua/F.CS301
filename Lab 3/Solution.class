@@ -1,0 +1,38 @@
+import java.util.Arrays;
+
+class Solution {
+   Solution() {
+   }
+
+   public TreeNode sortedArrayToBST(int[] var1) {
+      Arrays.sort(var1);
+      return this.helper(var1, 0, var1.length - 1);
+   }
+
+   private TreeNode helper(int[] var1, int var2, int var3) {
+      if (var2 > var3) {
+         return null;
+      } else {
+         int var4 = (var2 + var3) / 2;
+         TreeNode var5 = new TreeNode(var1[var4]);
+         var5.left = this.helper(var1, var2, var4 - 1);
+         var5.right = this.helper(var1, var4 + 1, var3);
+         return var5;
+      }
+   }
+
+   public static void main(String[] var0) {
+      Solution var1 = new Solution();
+      int[] var2 = new int[]{3, 1, 4, 2};
+      TreeNode var3 = var1.sortedArrayToBST(var2);
+      printBST(var3);
+   }
+
+   private static void printBST(TreeNode var0) {
+      if (var0 != null) {
+         printBST(var0.left);
+         System.out.println(var0.val);
+         printBST(var0.right);
+      }
+   }
+}
