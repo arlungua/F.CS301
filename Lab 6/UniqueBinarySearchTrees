@@ -1,0 +1,26 @@
+public class UniqueBinarySearchTrees {
+   public UniqueBinarySearchTrees() {
+   }
+
+   public int numTrees(int var1) {
+      int[] var2 = new int[var1 + 1];
+      var2[0] = 1;
+      var2[1] = 1;
+
+      for(int var3 = 2; var3 <= var1; ++var3) {
+         for(int var4 = 1; var4 <= var3; ++var4) {
+            var2[var3] += var2[var4 - 1] * var2[var3 - var4];
+         }
+      }
+
+      return var2[var1];
+   }
+
+   public static void main(String[] var0) {
+      UniqueBinarySearchTrees var1 = new UniqueBinarySearchTrees();
+      byte var2 = 3;
+      System.out.println("Input: n = " + var2 + "\nOutput: " + var1.numTrees(var2));
+      byte var3 = 1;
+      System.out.println("Input: n = " + var3 + "\nOutput: " + var1.numTrees(var3));
+   }
+}
